@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/GenericDFS.c
+stdio.h
+-
+GenericDFS.h
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/GenericDFS.h
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/GenericDFS.h
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/SudokuSolver.c
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+assert.h
+-
+SudokuTree.h
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/SudokuTree.h
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/SudokuTree.c
+SudokuTree.h
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/SudokuTree.h
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+math.h
+-
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/SudokuTree.h
+GenericDFS.h
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/GenericDFS.h
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex3/tester.c
+

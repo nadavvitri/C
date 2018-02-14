@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex1/ex1.c
+stdio.h
+-
+math.h
+-
+string.h
+-
+stdlib.h
+-
+

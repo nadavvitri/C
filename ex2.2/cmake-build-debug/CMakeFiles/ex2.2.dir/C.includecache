@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex2.2/LineSeparator.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+assert.h
+-
+LineSeparator.h
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex2.2/LineSeparator.h
+
+/cygdrive/c/Users/nadav vitri/CLionProjects/ex2.2/LineSeparator.h
+

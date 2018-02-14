@@ -1,0 +1,118 @@
+#! /usr/bin/python
+import os
+import sys
+sys.path.insert(0, '/cs/course/2016/plabc/www/')
+import psUtils
+import os, shutil
+import subprocess
+#Set autoflash
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+courseBaseDir = "/cs/course/current/plabc"
+
+# Exercise name
+exName = "ex3"
+
+#Here we define good and bad files.
+required = ["SudokuSolver.c",\
+	    "GenericDFS.c", \
+            "SudokuTree.c",\
+            "SudokuTree.h"]
+forbidden =[]
+goodPatterns = ["README",\
+                "*.c",\
+	        "*.h",\
+                "[Mm]akefile",\
+                "*.pdf"]
+
+badPatterns = ["*.class",\
+               "*.o",\
+               "*.pyc",\
+               "[Gg]eneric[Dd][Ff][Ss].h"]
+
+
+makeTasks = ["libGenericDFS.a", "SudokuSolver", "clean", "all"]
+runTasks =  ["./SudokuSolver basic.in | diff -B basic.out -"]
+
+#################################################################
+
+#the compile command as it will be executed in the temp directory.
+makeCmdBase = "make "
+
+#number of seconds afterwhich the execution process will be terminated.
+secsToRun = 3
+
+##################################################################
+#
+#  print the usage message.
+#
+##################################################################
+
+# the script name:
+scriptName = os.path.split(sys.argv[0])[1]
+
+def usage():
+    print scriptName + " <tar_file>"
+    print "Will test the given tar file as a candidate submission for the exercise."
+    print "Example:\n\t" + scriptName + " ex.tar"
+
+    print """Note: passing this test script does not guaruntee a high grade.
+These are only very basic tests to avoid some common mistakes.
+If an error is found, correct it and run the script on the corrected file to make sure it is ok.
+"""
+
+#################################################################
+#    Do the work...
+#################################################################
+
+# check that a file was supplied.
+if len(sys.argv) != 2:
+    usage()
+    sys.exit(1)
+
+print "Running..."
+#argv[1] is the name of the candidate submission file. e.g. "ex3.tar"
+tarFile = os.path.abspath(sys.argv[1])
+
+tempDir = psUtils.createTempDir("labc_Temp_"+exName+"_")
+os.chdir(tempDir)
+
+# Open tar file
+if psUtils.extractTar(tarFile):
+    sys.exit(1);
+    
+print "Tar extracted O.K."
+   
+#make sure the files are as they should be.
+if psUtils.checkFiles(tempDir, required, forbidden, goodPatterns, badPatterns):
+    sys.exit(1)
+
+# Make sure there are no empty files submitted
+# (we do this since these can be compiled without error)
+if psUtils.emptyFiles(tempDir):
+    sys.exit(1)
+
+# Add extra files needed for this program.
+ex3_files = os.path.abspath("/cs/course/2016/plabc/www/ex3/ex3_files.tar")
+shutil.copy2(ex3_files, tempDir)
+psUtils.compile("tar xf ex3_files.tar", False)
+os.remove("ex3_files.tar")    
+
+print "Compilation check..."
+
+#Compile the program
+for task in makeTasks:
+    compileCmd = makeCmdBase + " " + task
+    if compileCmd:
+        compileResult = psUtils.compile(compileCmd)
+        if compileResult:
+            sys.exit(compileResult)
+    
+for execCmd in runTasks:
+    if execCmd and secsToRun:
+        cmdResult = psUtils.safeRunCMD(execCmd,secsToRun, toPrint = True)
+        if cmdResult:
+            print execCmd, "failed"
+            sys.exit(cmdResult)
+        
+print "Compilation seems OK! Check if you got warnings!"
+sys.exit(0)
